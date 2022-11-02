@@ -4,6 +4,7 @@
 # ADDED by Adrian:
 .env
 /not_for_github
+.metadata
 
 ## Auto-generated from STS
 HELP.md
