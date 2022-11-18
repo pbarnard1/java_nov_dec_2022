@@ -7,15 +7,20 @@
 <html>
 <head>
 	<meta charset="ISO-8859-1">
-	<title>New university page</title>
+	<title>Edit university page</title>
     <link rel="stylesheet" href="/webjars/bootstrap/css/bootstrap.min.css">
     <script src="/webjars/jquery/jquery.min.js"></script>
     <script src="/webjars/bootstrap/js/bootstrap.min.js"></script>
 </head>
 <body>
-	<h1>Add a University</h1>
+	<h1>Edit a University</h1>
 	<a href="/universities" class="btn btn-primary">All universities</a>
-	<form:form action="/universities/new" method="post" modelAttribute="newUniversity">
+	<form:form action="/universities/${thisUniversity.id}/delete" method="post" modelAttribute="thisUniversity">
+		<input type="hidden" name="_method" value="delete">
+		<input type="submit" class="btn btn-danger" value="Delete university">
+	</form:form>
+	<form:form action="/universities/${thisUniversity.id}/edit" method="post" modelAttribute="thisUniversity">
+		<input type="hidden" name="_method" value="put">
 		<p>
 			<form:label path="city">City:</form:label>
 			<form:errors path="city"/>
@@ -48,7 +53,7 @@
 			<form:errors path="yearFounded"/>
 			<form:input type="number" min="1" step="1" path="yearFounded"/>
 		</p>
-		<input type="submit" value="Add university">
+		<input type="submit" value="Edit university">
 	</form:form>
 </body>
 </html>
