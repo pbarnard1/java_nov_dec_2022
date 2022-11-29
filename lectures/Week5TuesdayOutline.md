@@ -21,6 +21,8 @@ Due by 10:59 PM Pacific Sunday night; highly advised to get these done early, pr
 - Review starter code from last week
 - Show wireframe for project
 - Identify remaining routes for project
+- Relationships (one-to-one, one-to-many, many-to-many)
+- Dropping and recreating a schema
 - Create a Hall
 - Read all Halls
 - Show all the Halls in one University
