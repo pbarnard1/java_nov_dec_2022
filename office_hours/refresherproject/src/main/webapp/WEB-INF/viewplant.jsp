@@ -12,7 +12,7 @@
 <html>
 <head>
 	<meta charset="ISO-8859-1">
-	<title>Insert title here</title>
+	<title>View plant</title>
     <link rel="stylesheet" href="/webjars/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="/css/main.css"> <!-- change to match your file/naming structure -->
     <script src="/webjars/jquery/jquery.min.js"></script>
@@ -20,26 +20,10 @@
 </head>
 <body>
 	<div class="container-fluid">
-		<h1>All Plants</h1>
-		<table class="table table-striped">
-			<thead>
-				<tr>
-					<th>ID</th>
-					<th>Name</th>
-					<th>Actions</th>
-				</tr>
-			</thead>
-			<tbody>
-				<c:forEach var="thisPlant" items="${ allPlants }">
-					<tr class="align-middle">
-						<td><c:out value="${ thisPlant.id }"/></td>
-						<td><c:out value="${ thisPlant.name }"/></td>
-						<td><a href="/plants/${thisPlant.id}" class="btn btn-primary">View</a></td>
-					</tr>
-				</c:forEach>
-			</tbody>
-		</table>
-		<a href="/plants/new" class="btn btn-primary">Add plant</a>
+		<h1>About <c:out value="${thisPlant.name}"/>:</h1>
+		<p>Is perennial: <c:out value="${thisPlant.isPerennial}"/></p>
+		<p>Color: <c:out value="${thisPlant.color}"/></p>
+		<p><a href="/" class="btn btn-primary">All plants</a>
 	</div>
 </body>
 </html>

@@ -5,7 +5,7 @@
 <html>
 <head>
 	<meta charset="ISO-8859-1">
-	<title>All universities page</title>
+	<title>All halls page</title>
     <link rel="stylesheet" href="/webjars/bootstrap/css/bootstrap.min.css">
     <script src="/webjars/jquery/jquery.min.js"></script>
     <script src="/webjars/bootstrap/js/bootstrap.min.js"></script>
@@ -16,40 +16,38 @@
 			<a class="navbar-brand" href="/">University Directory</a>
 			<ul class="nav nav-pills">
 				<li class="nav-item">
-					<a class="nav-link" href="/halls">All halls</a>
+					<a class="nav-link" href="/universities">All universities</a>
 				</li>
 			</ul>
 		</div>
 	</nav>
 	<div class="container-fluid">
-		<h1>All universities</h1>
+		<h1>All halls</h1>
 		<table class="table table-striped table-hover">
 			<thead>
 				<tr>
 					<th>ID</th>
-					<th>University name</th>
-					<th>Number of halls</th>
-					<th>City</th>
+					<th>Name</th>
+					<th>University</th>
 					<th>Actions</th>
 				</tr>
 			</thead>
 			<tbody>
-				<c:forEach var="university" items="${universities}">
+				<c:forEach var="hall" items="${allHalls}">
 					<tr class="align-middle">
-						<td><c:out value="${university.id}"/></td>
-						<td><c:out value="${university.name}"/></td>
-						<td><c:out value="${university.halls.size()}"/></td>
-						<td><c:out value="${university.city}"/></td>
+						<td><c:out value="${hall.id}"/></td>
+						<td><c:out value="${hall.name}"/></td>
+						<td><c:out value="${hall.university.name}"/></td>
 						<td>
-							<a href="/universities/${university.id}" class="btn btn-primary">View</a>
-							<a href="/universities/${university.id}/edit" class="btn btn-warning">Edit</a>
-							<a href="/universities/${university.id}/delete" class="btn btn-danger">Delete</a>
+							<a href="/halls/${hall.id}" class="btn btn-primary">View</a>
+							<a href="/halls/${hall.id}/edit" class="btn btn-warning">Edit</a>
+							<a href="/halls/${hall.id}/delete" class="btn btn-danger">Delete</a>
 						</td>
 					</tr>
 				</c:forEach>
 			</tbody>
 		</table>
-		<p><a href="/universities/new" class="btn btn-primary">Add a university</a></p>
+		<p><a href="/halls/new" class="btn btn-primary">Add hall</a></p>
 	</div>
 </body>
 </html>

@@ -5,7 +5,7 @@
 <html>
 <head>
 	<meta charset="ISO-8859-1">
-	<title>About ${thisUniversity.name}</title>
+	<title>About ${thisHall.name}</title>
     <link rel="stylesheet" href="/webjars/bootstrap/css/bootstrap.min.css">
     <script src="/webjars/jquery/jquery.min.js"></script>
     <script src="/webjars/bootstrap/js/bootstrap.min.js"></script>
@@ -16,24 +16,17 @@
 			<a class="navbar-brand" href="/">University Directory</a>
 			<ul class="nav nav-pills">
 				<li class="nav-item">
-					<a class="nav-link" href="/universities">All universities</a>
+					<a class="nav-link" href="/halls">All halls</a>
 				</li>
 			</ul>
 		</div>
 	</nav>
 	<div class="container-fluid">
-		<h1>About <c:out value="${thisUniversity.name}"/></h1>
-		<p>City: <c:out value="${thisUniversity.city}"/></p>
-		<p>Offers online courses: <c:out value="${thisUniversity.isOnline}"/></p>
-		<p>Offers in-person courses: <c:out value="${thisUniversity.isInPerson}"/></p>
-		<p>Enrollment: <c:out value="${thisUniversity.enrollment}"/></p>
-		<p>Year established: <c:out value="${thisUniversity.yearFounded}"/></p>
-		<p>List of halls:</p>
-		<ul>
-			<c:forEach var="thisHall" items="${thisUniversity.halls}">
-				<li><c:out value="${thisHall.name}"/></li>
-			</c:forEach>
-		</ul>
+		<h1>About <c:out value="${thisHall.name}"/></h1>
+		<p>Located at <c:out value="${thisHall.university.name}"/></p>
+		<p>Is a residential hall: <c:out value="${thisHall.isResidential}"/></p>
+		<p>Floors: <c:out value="${thisHall.floors}"/></p>
+		<p>Has lecture rooms: <c:out value="${thisHall.hasLectureRooms}"/></p>
 	</div>
 </body>
 </html>

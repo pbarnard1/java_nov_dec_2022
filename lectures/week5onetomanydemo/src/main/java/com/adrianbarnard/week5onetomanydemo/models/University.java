@@ -3,6 +3,7 @@ package com.adrianbarnard.week5onetomanydemo.models;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -50,7 +51,9 @@ public class University {
 	private Integer yearFounded; // Year the university was established
 	
 	// How do we connect to our Halls for each University?
-	@OneToMany(mappedBy="university", fetch=FetchType.LAZY)
+	// Method 1 for deleting a university: use cascade=CascadeType.ALL, but be CAREFUL - this deletes EVERYTHING linked to
+	// the University, so in this case removes the Halls (and soon User linked); see Method 2 in the UniversityService file
+	@OneToMany(mappedBy="university", fetch=FetchType.LAZY) // Be careful using cascade=CascadeType.ALL
 	private List<Hall> halls;
 	// IMPORTANT: Don't forget to update getters and setters AND your constructor!!!
 	

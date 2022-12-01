@@ -6,13 +6,18 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.adrianbarnard.week5onetomanydemo.models.Hall;
 import com.adrianbarnard.week5onetomanydemo.models.University;
+import com.adrianbarnard.week5onetomanydemo.repositories.HallRepository;
 import com.adrianbarnard.week5onetomanydemo.repositories.UniversityRepository;
 
 @Service
 public class UniversityService {
 	@Autowired
 	private UniversityRepository universityRepository;
+	
+	@Autowired
+	private HallRepository hallRepository;
 	
 	// Methods to interact with our repository
 	
@@ -51,6 +56,15 @@ public class UniversityService {
 	
 	// Delete a University
 	public void deleteUniversity(Long id) {
+		// METHOD 2 for deleting a University with Halls linked: just delete the University, but NOT the Halls
+		
+		// Disconnect each Hall from this University we're deleting - so we don't necessarily remove the Halls
+		University thisUniversity = this.getOneUniversity(id);
+		// Go through each Hall and disconnect this University
+		for (Hall thisHall : thisUniversity.getHalls()) {
+			thisHall.setUniversity(null); // This disconnects this Hall to the University we're deleting
+			hallRepository.save(thisHall); // Tell the Hall repository to save the updated hall
+		}
 		universityRepository.deleteById(id);
 	}
 }

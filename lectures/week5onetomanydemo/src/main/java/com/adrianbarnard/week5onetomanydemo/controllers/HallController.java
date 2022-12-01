@@ -29,8 +29,9 @@ public class HallController {
 	
 	// All halls page
 	@GetMapping("/halls")
-	public String allHallsPage() {
-		return null; // Placeholder
+	public String allHallsPage(Model viewModel) {
+		viewModel.addAttribute("allHalls", hallService.getAllHalls());
+		return "halls.jsp";
 	}
 	
 	// New hall form
@@ -42,14 +43,17 @@ public class HallController {
 	
 	// View one hall page
 	@GetMapping("/halls/{id}")
-	public String viewOneHallPage(@PathVariable("id") Long id) {
-		return null; // Placeholder
+	public String viewOneHallPage(@PathVariable("id") Long id, Model viewModel) {
+		viewModel.addAttribute("thisHall", hallService.getOneHall(id));
+		return "viewonehall.jsp";
 	}
 	
 	// Edit page
 	@GetMapping("/halls/{id}/edit")
-	public String editOneHallPage(@PathVariable("id") Long id) {
-		return null; // Placeholder
+	public String editOneHallPage(@PathVariable("id") Long id, Model viewModel) {
+		viewModel.addAttribute("editedHall", hallService.getOneHall(id));
+		viewModel.addAttribute("universities", universityService.getAllUniversities()); // For the dropdown to populate correctly
+		return "edithall.jsp";
 	}
 	
 	/*
@@ -71,13 +75,24 @@ public class HallController {
 	
 	// Editing a Hall in DB
 	@PutMapping("/halls/{id}/edit")
-	public String editHallInDB(@PathVariable("id") Long id) {
-		return "redirect:/halls"; // Placeholder
+	public String editHallInDB(@PathVariable("id") Long id, 
+			@Valid @ModelAttribute("editedHall") Hall editedHall, 
+			BindingResult result, Model viewModel) {
+		if (result.hasErrors()) { // If validations fail
+			// If your jsp file from before required you to pass anything in, you MUST pass those
+			// items in AGAIN using model.addAttribute()
+			viewModel.addAttribute("universities", universityService.getAllUniversities());
+			return "edithall.jsp";
+		}
+		// If the validations succeed
+		hallService.updateHall(editedHall);
+		return "redirect:/halls/"+id; // Redirect to that individual hall's page
 	}
 	
 	// Route to delete a Hall from the DB
 	@RequestMapping(value="/halls/{id}/delete", method={RequestMethod.GET, RequestMethod.DELETE})
 	public String deleteHallFromDB(@PathVariable("id") Long id) {
+		hallService.deleteHall(id);
 		return "redirect:/halls"; // Placeholder
 	}
 }
