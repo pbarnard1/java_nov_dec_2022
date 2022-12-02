@@ -12,7 +12,7 @@
 <html>
 <head>
 	<meta charset="ISO-8859-1">
-	<title>Insert title here</title>
+	<title>Edit a plant</title>
     <link rel="stylesheet" href="/webjars/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="/css/main.css"> <!-- change to match your file/naming structure -->
     <script src="/webjars/jquery/jquery.min.js"></script>
@@ -20,30 +20,29 @@
 </head>
 <body>
 	<div class="container-fluid">
-		<h1>All Plants</h1>
-		<table class="table table-striped">
-			<thead>
-				<tr>
-					<th>ID</th>
-					<th>Name</th>
-					<th>Actions</th>
-				</tr>
-			</thead>
-			<tbody>
-				<c:forEach var="thisPlant" items="${ allPlants }">
-					<tr class="align-middle">
-						<td><c:out value="${ thisPlant.id }"/></td>
-						<td><c:out value="${ thisPlant.name }"/></td>
-						<td>
-						<a href="/plants/${thisPlant.id}" class="btn btn-primary">View</a> 
-						<a href="/plants/${thisPlant.id}/edit" class="btn btn-warning">Edit</a> 
-						<a href="/plants/${thisPlant.id}/delete" class="btn btn-danger">Delete</a> 
-						</td>
-					</tr>
-				</c:forEach>
-			</tbody>
-		</table>
-		<a href="/plants/new" class="btn btn-primary">Add plant</a>
+		<h1>Edit a Plant</h1>
+		<form:form action="/plants/${editedPlant.id}/edit" method="post" modelAttribute="editedPlant">
+			<input type="hidden" name="_method" value="put">
+			<p>
+				<form:label path="name">Name:</form:label>
+				<form:input path="name"/>
+				<form:errors path="name"/>
+			</p>
+			<p>
+				<form:label path="color">Color:</form:label>
+				<form:input path="color"/>
+				<form:errors path="color"/>
+			</p>
+			<p>
+				<form:label path="isPerennial">Is a perennial plant:</form:label>
+				<form:radiobutton path="isPerennial" value="1" label="Yes"/>
+				<form:radiobutton path="isPerennial" value="0" label="No"/>
+				<form:errors path="isPerennial"/>
+			</p>
+			<p>
+				<input type="submit" class="btn btn-primary" value="Edit plant"/>
+			</p>
+		</form:form>
 	</div>
 </body>
 </html>
