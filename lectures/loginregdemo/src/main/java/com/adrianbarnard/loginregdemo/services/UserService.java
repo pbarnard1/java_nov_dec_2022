@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.BindingResult;
 
+import com.adrianbarnard.loginregdemo.models.LoginUser;
 import com.adrianbarnard.loginregdemo.models.User;
 import com.adrianbarnard.loginregdemo.repositories.UserRepository;
 
@@ -38,6 +39,26 @@ public class UserService {
 			newUser.setPassword(hashedPassword); // Hashed password will be saved in the DB
 			return userRepo.save(newUser); // Save new user in DB
 		}
+	}
+	
+	// Custom validations for checking for a valid login
+	public User login(LoginUser newLogin, BindingResult result) {
+		// Check to see if anyone the given email is found
+		// Check to see whether we have any users registered with that email
+		Optional<User> optionalUser = userRepo.findByEmail(newLogin.getLoginEmail());
+		if (!optionalUser.isPresent()) { // If User is NOT found with that email
+			result.rejectValue("loginEmail", "Matches", "Invalid login credentials.");
+			result.rejectValue("loginPassword", "Matches", "Invalid login credentials.");
+			return null; // Stop us from checking the password - no need if nobody exists with that email
+		}
+		User thisUser = optionalUser.get(); // Return the actual User with that email
+		// Check the password
+		if (!BCrypt.checkpw(newLogin.getLoginPassword(), thisUser.getPassword())) { // Passwords don't agree
+			result.rejectValue("loginEmail", "Matches", "Invalid login credentials.");
+			result.rejectValue("loginPassword", "Matches", "Invalid login credentials.");
+			return null; // Can't return the User - invalid login
+		}
+		return thisUser;
 	}
 	
 	public User findById(Long id) {

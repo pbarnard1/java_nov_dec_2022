@@ -48,7 +48,22 @@
 				</form:form>
 			</div>
 			<div class="col">
-				<p class="fs-3">Log in (placeholder - will add Tuesday)</p>
+				<p class="fs-3">Log in</p>
+				<form:form action="/login" method="post" modelAttribute="loginUser">
+					<div class="row my-4">
+						<form:label path="loginEmail" class="col-3">Email:</form:label>
+						<form:input path="loginEmail" class="col-8" type="email"/>
+						<form:errors path="loginEmail" class="text-danger offset-3"/>
+					</div>
+					<div class="row my-4">
+						<form:label path="loginPassword" class="col-3">Password:</form:label>
+						<form:password path="loginPassword" class="col-8"/>
+						<form:errors path="loginPassword" class="text-danger offset-3"/>
+					</div>
+					<div class="row">
+						<input type="submit" class="btn btn-primary offset-3 col-3" value="Log in"/>
+					</div>
+				</form:form>
 			</div>
 		</div>
 	</div>
