@@ -27,13 +27,14 @@
 				</tr>
 			</thead>
 			<tbody>
+			<!--  Fixed variable names accordingly -->
 				<c:forEach var="city" items="${cities}">
 					<tr class="align-middle">
-						<td><c:out value="${cities.id}"/></td>
-						<td><c:out value="${cities.name}"/></td>
+						<td><c:out value="${city.id}"/></td>
+						<td><c:out value="${city.name}"/></td>
 						<td>
-							<a href="/cities/${cities.id}" class="btn btn-primary">View</a>
-							<a href="/cities/${cities.id}/delete" class="btn btn-danger">Delete</a>
+							<a href="/cities/${city.id}" class="btn btn-primary">View</a>
+							<a href="/cities/${city.id}/delete" class="btn btn-danger">Delete</a>
 						</td>
 					</tr>
 				</c:forEach>

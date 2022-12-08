@@ -1,5 +1,7 @@
 package com.adrianbarnard.brokenappfixed.controllers;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -24,7 +26,8 @@ public class MainController {
 	
 	@GetMapping("/")
 	public String citiesPage(Model viewModel) {
-		viewModel.addAttribute("allCities", cityServ.findAll());
+		// Fixed attribute name to match what's in JSP file
+		viewModel.addAttribute("cities", cityServ.findAll());
 		viewModel.addAttribute("allStores", storeServ.findAll());
 		viewModel.addAttribute("newCity", new City());
 		viewModel.addAttribute("newStore", new Store());
@@ -32,8 +35,8 @@ public class MainController {
 		return "mainpage.jsp";
 	}
 	
-	@PostMapping("/cities/new")
-	public String addCity(@ModelAttribute("newCity") City newCity, BindingResult result,
+	@PostMapping("/cities/new") // Bug fix below: forgot @Valid annotation
+	public String addCity(@Valid @ModelAttribute("newCity") City newCity, BindingResult result,
 			Model viewModel) {
 		if (result.hasErrors()) {
 			viewModel.addAttribute("allCities", cityServ.findAll());
@@ -45,8 +48,8 @@ public class MainController {
 		return "redirect:/";
 	}
 	
-	@PostMapping("/stores/new")
-	public String addStore(@ModelAttribute("newStore") Store newStore, BindingResult result,
+	@PostMapping("/stores/new") // Bug fix below: forgot @Valid annotation
+	public String addStore(@Valid @ModelAttribute("newStore") Store newStore, BindingResult result,
 			Model viewModel) {
 		if (result.hasErrors()) {
 			viewModel.addAttribute("allCities", cityServ.findAll());

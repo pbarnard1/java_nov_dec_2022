@@ -4,11 +4,13 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.adrianbarnard.brokenappfixed.models.City;
 import com.adrianbarnard.brokenappfixed.models.Store;
 import com.adrianbarnard.brokenappfixed.repositories.CityRepository;
 
+@Service // Bug fix: Forgot this line
 public class CityService {
 	@Autowired
 	private CityRepository cityRepo;

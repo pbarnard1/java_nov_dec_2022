@@ -91,6 +91,14 @@ public class City {
 	public void setName(String name) {
 		this.name = name;
 	}
+	// Bug fix: added missing getters and setters
+	public List<Store> getStores() {
+		return stores;
+	}
+
+	public void setStores(List<Store> stores) {
+		this.stores = stores;
+	}
 
 }
 

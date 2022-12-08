@@ -26,6 +26,6 @@ Lecture room 2 in Dojo Hall with Melissa at 1 PM Pacific this Thursday, December
         - Only showing the edit/delete links when the logged in user is the one who added the hall/university
         - Same with accessing edit forms - restrict to only creator
 - Add many-to-many relationship to project - majors (WILL NOT be pushed to GitHub)
-    - Add new .jsp file to display and add majors
-    - Add new model, repository, service and controller
-    - Display majors for each university; add and remove as needed
+    - Add new .jsp file to display and add majors (partially done)
+    - Add new model (DONE), repository (not done), service (not done) and controller (partially built)
+    - Display majors for each university; add and remove as needed (not done)

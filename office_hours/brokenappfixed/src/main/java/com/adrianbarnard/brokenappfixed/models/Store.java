@@ -83,5 +83,22 @@ public class Store {
 	public void setUpdatedAt(Date updatedAt) {
 		this.updatedAt = updatedAt;
 	}
+	
+	// Bug fix: Forget getters and setters for name and cities!
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public List<City> getCities() {
+		return cities;
+	}
+
+	public void setCities(List<City> cities) {
+		this.cities = cities;
+	}
 
 }
