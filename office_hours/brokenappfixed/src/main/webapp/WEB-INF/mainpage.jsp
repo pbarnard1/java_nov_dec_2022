@@ -76,11 +76,11 @@
 			<tbody>
 				<c:forEach var="store" items="${stores}">
 					<tr class="align-middle">
-						<td><c:out value="${stores.id}"/></td>
-						<td><c:out value="${stores.name}"/></td>
+						<td><c:out value="${store.id}"/></td>
+						<td><c:out value="${store.name}"/></td>
 						<td>
-							<a href="/stores/${stores.id}" class="btn btn-primary">View</a>
-							<a href="/stores/${stores.id}/delete" class="btn btn-danger">Delete</a>
+							<a href="/stores/${store.id}" class="btn btn-primary">View</a>
+							<a href="/stores/${store.id}/delete" class="btn btn-danger">Delete</a>
 						</td>
 					</tr>
 				</c:forEach>

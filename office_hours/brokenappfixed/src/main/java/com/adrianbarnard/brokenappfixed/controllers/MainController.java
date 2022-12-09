@@ -28,7 +28,7 @@ public class MainController {
 	public String citiesPage(Model viewModel) {
 		// Fixed attribute name to match what's in JSP file
 		viewModel.addAttribute("cities", cityServ.findAll());
-		viewModel.addAttribute("allStores", storeServ.findAll());
+		viewModel.addAttribute("stores", storeServ.findAll());
 		viewModel.addAttribute("newCity", new City());
 		viewModel.addAttribute("newStore", new Store());
 		
@@ -39,8 +39,10 @@ public class MainController {
 	public String addCity(@Valid @ModelAttribute("newCity") City newCity, BindingResult result,
 			Model viewModel) {
 		if (result.hasErrors()) {
-			viewModel.addAttribute("allCities", cityServ.findAll());
-			viewModel.addAttribute("allStores", storeServ.findAll());
+			// NOTE: Don't forget to pass in attributes again as needed!!!!
+			
+			viewModel.addAttribute("cities", cityServ.findAll());
+			viewModel.addAttribute("stores", storeServ.findAll());
 			viewModel.addAttribute("newStore", new Store());
 			return "mainpage.jsp";
 		}
@@ -52,8 +54,8 @@ public class MainController {
 	public String addStore(@Valid @ModelAttribute("newStore") Store newStore, BindingResult result,
 			Model viewModel) {
 		if (result.hasErrors()) {
-			viewModel.addAttribute("allCities", cityServ.findAll());
-			viewModel.addAttribute("allStores", storeServ.findAll());
+			viewModel.addAttribute("cities", cityServ.findAll());
+			viewModel.addAttribute("stores", storeServ.findAll());
 			viewModel.addAttribute("newCity", new City());
 			return "mainpage.jsp";
 		}
@@ -82,6 +84,9 @@ public class MainController {
 		City thisCity = cityServ.findCityById(cityId);
 		Store thisStore = storeServ.findStoreById(storeId);
 		thisCity.getStores().add(thisStore);
+		// You don't need to add on both sides - just once is enough: 
+		// so you don't need to do thisStore.getCities().add(thisCity); - just one or the other
+		cityServ.updateCity(thisCity); // Bug fix: forgot to save the changes to our City - we're adding a Store
 		return "redirect:/stores/" + storeId;
 	}
 	
@@ -89,7 +94,10 @@ public class MainController {
 	public String linkStoreToCity(@PathVariable Long cityId, @PathVariable Long storeId) {
 		City thisCity = cityServ.findCityById(cityId);
 		Store thisStore = storeServ.findStoreById(storeId);
+		System.out.println("City id: " + thisCity.getId());
+		System.out.println("Store id: " + thisStore.getId());
 		thisCity.getStores().add(thisStore);
+		cityServ.updateCity(thisCity); // Bug fix: forgot to save the changes to our City - we're adding a Store
 		return "redirect:/cities/" + cityId;
 	}
 	
@@ -98,6 +106,7 @@ public class MainController {
 		City thisCity = cityServ.findCityById(cityId);
 		Store thisStore = storeServ.findStoreById(storeId);
 		thisCity.getStores().remove(thisStore);
+		cityServ.updateCity(thisCity); // Bug fix: forgot to save the changes to our City - we're removing a Store
 		return "redirect:/stores/" + storeId;
 	}
 	
@@ -106,17 +115,20 @@ public class MainController {
 		City thisCity = cityServ.findCityById(cityId);
 		Store thisStore = storeServ.findStoreById(storeId);
 		thisCity.getStores().remove(thisStore);
+		cityServ.updateCity(thisCity); // Bug fix: forgot to save the changes to our City - we're removing a Store
 		return "redirect:/cities/" + cityId;
 	}
 	
 	@GetMapping("/cities/{id}/delete")
 	public String removeCity(@PathVariable Long id) {
+		/* While it worked at the time as is, you might have to remove all the stores from the city first before deleting the city. */
 		cityServ.deleteCity(id);
 		return "redirect:/";
 	}
 	
 	@GetMapping("/stores/{id}/delete")
 	public String removeStore(@PathVariable Long id) {
+		/* While it worked at the time as is, you might have to remove all the cities from the store first before deleting the store. */
 		storeServ.deleteStore(id);
 		return "redirect:/";
 	}

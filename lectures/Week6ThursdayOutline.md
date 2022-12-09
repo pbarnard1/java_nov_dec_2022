@@ -12,7 +12,6 @@ No more core assignments - so use this as an opportunity to catch up!
 ## Exam notes
 Codes will be sent by 10 AM Pacific this Friday if you have at least 9 out of 10 core assignments handed in!
 
-
 ## Lecture outline:
 - Format of exam and what to expect
 - Add many-to-many relationship to project - majors (WILL NOT be pushed to GitHub)
@@ -22,4 +21,4 @@ Codes will be sent by 10 AM Pacific this Friday if you have at least 9 out of 10
     - Displaying all majors
     - Deleting majors (be careful!)
 
-- Tuesday and Wednesday next week: belt review project with working login/registration already built
+- Tuesday and Wednesday next week: belt review project with working login/registration already built (will NOT be pushed to GitHub)

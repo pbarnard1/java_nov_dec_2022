@@ -26,7 +26,7 @@
 					<form action="/stores/${thisStore.id}/removeCity/${city.id}" method="POST">
 						<input type="hidden" name="_method" value="delete">
 						<c:out value="${ city.name }"/>
-						<input type="submit" class="btn btn-primary" value="Remove">
+						<input type="submit" class="btn btn-danger" value="Remove">
 					</form>
 				</li>
 			</c:forEach>
