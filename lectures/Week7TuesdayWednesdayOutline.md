@@ -1,4 +1,4 @@
-# Tuesday, December 13 - Java Week 7
+# Tuesday and Wednesday, December 13-14 - Java Week 7
 
 ## Discussion topics:
 - https://login.codingdojo.com/d/325/159/1245 - "Why do we use bCrypt when it comes to registering users? Why do we not store passwords in plain text on the database?"
@@ -21,15 +21,15 @@ Thursday at 1 PM Pacific in Dojo Hall lecture room 2 with Melissa!
 
 ## Lecture outline for next 2 days:
 - Belt review project:
-    - Show starter login/registration code and dependencies used (Monday)
-    - Rename schema in application.properties file (Monday)
-    - Look at wireframe (Monday):
+    - Show starter login/registration code and dependencies used (Tuesday)
+    - Rename schema in application.properties file (Tuesday)
+    - Look at wireframe (Tuesday):
         - Identify routes
         - Identify models and relationships (one-to-one, one-to-many, many-to-many)
-    - Build out these files (Monday):
+    - Build out these files (Tuesday):
         - Model, repository and service for the new table (new controller file is up to you)
         - Create jsp files
-    - Build out CRUD features (Tuesday):
+    - Build out CRUD features (Wednesday):
         - Create new item
         - Read all items
         - Read one item
