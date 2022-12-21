@@ -5,11 +5,13 @@
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <!-- Formatting (dates) --> 
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<!-- for rendering errors on PUT routes -->
+<%@ page isErrorPage="true" %>
 <!DOCTYPE html>
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>Stores page</title>
+    <title>Edit store</title>
     <link rel="stylesheet" href="/webjars/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="/css/main.css"> <!-- change to match your file/naming structure -->
     <script src="/webjars/jquery/jquery.min.js"></script>
@@ -17,44 +19,14 @@
 </head>
 <body>
 	<div class="container-fluid">
-		<p class="fs-1">All stores</p>
-		<table class="table table-striped table-hover">
-			<thead>
-				<tr>
-					<th>ID</th>
-					<th>City</th>
-					<th>Chain</th>
-					<th>Address</th>
-					<th>Has drive thru?</th>
-					<th>Number of employees</th>
-					<th>Actions</th>
-				</tr>
-			</thead>
-			<tbody>
-			<!--  Fixed variable names accordingly -->
-				<c:forEach var="store" items="${allStores}">
-					<tr class="align-middle">
-						<td><c:out value="${store.id}"/></td>
-						<td><c:out value="${store.city.name}"/></td>
-						<td><c:out value="${store.chain.name}"/></td>
-						<td><c:out value="${store.address}"/></td>
-						<td><c:out value="${store.hasDriveThru}"/></td>
-						<td><c:out value="${store.employeeCount}"/></td>
-						<td>
-							<form action="/stores/${store.id}/delete" method="post">
-								<a href="/stores/${store.id}/edit" class="btn btn-primary">Edit</a>
-								<input type="hidden" name="_method" value="delete">
-								<input type="submit" class="btn btn-danger" value="Delete">
-							</form>
-						</td>
-					</tr>
-				</c:forEach>
-			</tbody>
-		</table>
+		<div class="row">
+			<p><a href="/stores" class="btn btn-primary">All stores</a></p>
+		</div>
 		<div class="row">
 			<div class="col">
-				<form:form action="/stores/new" method="post" modelAttribute="newStore">
-					<p class="fs-4">Add new store</p>
+				<form:form action="/stores/${editedStore.id}/edit" method="post" modelAttribute="editedStore">
+					<input type="hidden" name="_method" value="put">
+					<p class="fs-4">Edit store</p>
 					<div class="row my-4">
 						<form:label path="hasDriveThru" class="col-2">Has a drive-thru:</form:label>
 						<div class="col">
@@ -91,11 +63,10 @@
 						</div>
 						<form:errors path="chain" class="text-danger offset-2"/>
 					</div>
-					<input type="submit" class="btn btn-primary offset-2 col-2" value="Add store">
+					<input type="submit" class="btn btn-primary offset-2 col-2" value="Edit store">
 				</form:form>
 			</div>
 		</div>
 	</div>
-	<a href="/" class="btn btn-primary">All cities and chains</a>
 </body>
 </html>

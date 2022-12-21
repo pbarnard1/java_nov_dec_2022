@@ -19,29 +19,15 @@
 </head>
 <body>
 	<div class="container-fluid">
-		<h1>List of cities with <c:out value="${thisChain.name}"/>:</h1>
-				<ul>
-			<c:forEach var="city" items="${thisChain.cities}">
-				<li>
-					<form action="/chains/${thisChain.id}/removeCity/${city.id}" method="POST">
-						<input type="hidden" name="_method" value="delete">
-						<c:out value="${ city.name }"/>
-						<input type="submit" class="btn btn-danger" value="Remove">
-					</form>
-				</li>
-			</c:forEach>
-		</ul>
-		<p class="fs-3">Cities without <c:out value="${thisChain.name}"/>:</p>
+		<h1>List of stores with <c:out value="${thisChain.name}"/>:</h1>
 		<ul>
-			<c:forEach var="city" items="${missingCities}">
+			<c:forEach var="store" items="${thisChain.stores}">
 				<li>
-					<form action="/chains/${thisChain.id}/addCity/${city.id}" method="POST">
-						<c:out value="${ city.name }"/>
-						<input type="submit" class="btn btn-primary" value="Add">
-					</form>
+					<c:out value="${store.city.name }"/> at <c:out value="${store.address }"/>
 				</li>
 			</c:forEach>
 		</ul>
+		<p><a href="/" class="btn btn-primary">All cities and chains</a> <a href="/stores" class="btn btn-primary">All stores</a></p>
 	</div>
 </body>
 </html>

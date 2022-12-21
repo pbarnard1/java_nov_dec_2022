@@ -87,5 +87,6 @@
 			</tbody>
 		</table>
 	</div>
+	<a href="/stores" class="btn btn-primary">All stores</a>
 </body>
 </html>

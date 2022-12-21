@@ -6,10 +6,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 
 import com.adrianbarnard.manytomanydemo.models.Chain;
 import com.adrianbarnard.manytomanydemo.models.City;
@@ -124,14 +126,22 @@ public class MainController {
 	
 	@GetMapping("/cities/{id}/delete")
 	public String removeCity(@PathVariable Long id) {
-		/* While it worked at the time as is, you might have to remove all the chains from the city first before deleting the city. */
-		cityServ.deleteCity(id);
+		/* We must remove all the stores from the city first before deleting the city. */
+		City thisCity = cityServ.findCityById(id);
+		for (Store thisStore : thisCity.getStores()) {
+			storeServ.deleteStore(thisStore); // Remove that store from the DB that's linked to this city
+		}
+		cityServ.deleteCity(thisCity);
 		return "redirect:/";
 	}
 	
 	@GetMapping("/chains/{id}/delete")
 	public String removeChain(@PathVariable Long id) {
-		/* While it worked at the time as is, you might have to remove all the cities from the chain first before deleting the chain. */
+		/* We must remove all the stores from the chain first before deleting the chain. */
+		Chain thisChain = chainServ.findChainById(id);
+		for (Store thisStore: thisChain.getStores()) {
+			storeServ.deleteStore(thisStore);
+		}
 		chainServ.deleteChain(id);
 		return "redirect:/";
 	}
@@ -143,5 +153,49 @@ public class MainController {
 		viewModel.addAttribute("cities", cityServ.findAll());
 		viewModel.addAttribute("chains", chainServ.findAll());
 		return "stores.jsp";
+	}
+	
+	@PostMapping("/stores/new")
+	public String addStoreToDB(@Valid @ModelAttribute("newStore") Store newStore, BindingResult result,
+			Model viewModel) {
+		if (result.hasErrors()) {
+			// Needed for dropdowns to work again
+			viewModel.addAttribute("allStores", storeServ.findAllStores());
+			viewModel.addAttribute("cities", cityServ.findAll());
+			viewModel.addAttribute("chains", chainServ.findAll());
+			return "stores.jsp";
+		}
+		storeServ.createStore(newStore); // Save the new store in the DB
+		return "redirect:/stores";
+	}
+	
+	@GetMapping("/stores/{id}/edit")
+	public String editStorePage(Model viewModel, @PathVariable("id") Long id) {
+		// For dropdowns to work properly
+		viewModel.addAttribute("cities", cityServ.findAll());
+		viewModel.addAttribute("chains", chainServ.findAll());
+		// Actual Store object we're going to edit
+		viewModel.addAttribute("editedStore", storeServ.findStoreById(id));
+		return "editStore.jsp";
+	}
+	
+	@PutMapping("/stores/{id}/edit")
+	public String editStoreInDB(@Valid @ModelAttribute("editedStore") Store editedStore, BindingResult result,
+			Model viewModel, @PathVariable("id") Long id) {
+		if (result.hasErrors()) {
+			// For dropdowns to work properly
+			viewModel.addAttribute("cities", cityServ.findAll());
+			viewModel.addAttribute("chains", chainServ.findAll());
+			return "editStore.jsp";
+		}
+		storeServ.updateStore(editedStore);
+		return "redirect:/stores";
+	}
+	
+	@DeleteMapping("/stores/{id}/delete")
+	public String deleteStoreFromDB(@PathVariable("id") Long id) {
+		Store thisStore = storeServ.findStoreById(id);
+		storeServ.deleteStore(thisStore);
+		return "redirect:/stores";
 	}
 }
