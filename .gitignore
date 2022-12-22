@@ -5,6 +5,7 @@
 .env
 /not_for_github
 .metadata
+**/application-dev.properties
 
 ## Auto-generated from STS
 HELP.md
