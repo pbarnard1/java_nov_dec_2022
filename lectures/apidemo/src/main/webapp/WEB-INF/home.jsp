@@ -19,7 +19,15 @@
 </head>
 <body>
 	<div class="container-fluid">
-		<h1>Hello world!</h1>
+		<h1>NASA pictures:</h1>
+		<form action="/findImage" method="POST">
+			<label for="date">Date to search:</label>
+			<input type="date" id="date" name="search_date">
+			<input type="submit" value="Search" class="btn btn-primary">
+		</form>
+		<p>Date: <c:out value="${date}"/></p>
+		<img src="${imageUrl}" alt="Picture of the day">
+		<p>Explanation: <c:out value="${explanation}"/></p>
 	</div>
 </body>
 </html>

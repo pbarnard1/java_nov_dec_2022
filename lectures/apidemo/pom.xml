@@ -64,6 +64,13 @@
             <artifactId>jquery</artifactId>
             <version>3.6.0</version>
         </dependency>
+        <!-- New dependency for talking to our API: Unirest -->
+        <!-- https://www.baeldung.com/unirest -->
+        <dependency>
+		    <groupId>com.mashape.unirest</groupId>
+		    <artifactId>unirest-java</artifactId>
+		    <version>1.4.9</version>
+		</dependency>
 	</dependencies>
 
 	<build>
